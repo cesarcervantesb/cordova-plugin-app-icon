@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="@ccervantesb/cordova-plugin-app-icon" version="1.0.0"
+	xmlns="http://apache.org/cordova/ns/plugins/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>PluginAppIcon</name>
+	<js-module name="appIcon" src="www/cordova-plugin-app-icon.js">
+		<clobbers target="cordova.plugins.appIcon" />
+		<clobbers target="appIcon" />
+	</js-module>
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="PluginAppIcon">
+				<param name="android-package" value="com.ccervantesb.appicon.PluginAppIcon" />
+			</feature>
+		</config-file>
+		<source-file src="src/android/PluginAppIcon.java" target-dir="src/com/ccervantesb/appicon" />
+	</platform>
+</plugin>

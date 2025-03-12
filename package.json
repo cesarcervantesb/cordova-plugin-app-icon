@@ -1,0 +1,25 @@
+{
+  "name": "@ccervantesb/cordova-plugin-app-icon",
+  "version": "1.0.0",
+  "description": "This plugin allows change the app icon.",
+  "cordova": {
+    "id": "com.ccervantesb.appicon",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cesarcervantesb/cordova-plugin-app-icon.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "ccervantesb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cesarcervantesb/cordova-plugin-app-icon/issues"
+  },
+  "homepage": "https://github.com/cesarcervantesb/cordova-plugin-app-icon#readme"
+}
