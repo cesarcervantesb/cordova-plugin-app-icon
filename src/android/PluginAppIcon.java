@@ -11,6 +11,7 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -37,19 +38,21 @@ public class PluginAppIcon extends CordovaPlugin {
         if (action.equals("change")) {
             String enableName = null;
             JSONArray disableNames = new JSONArray();
+            JSONObject params;
             if (!args.isNull(0)) {
-                enableName = args.getString(0);
-            }
-            if (!args.isNull(1)) {
-                disableNames = args.getJSONArray(1);
+                params = args.getJSONObject(0);
+                enableName = params.getString("enableName");
+                disableNames = params.getJSONArray("disableNames");
             }
             changeIcon(enableName, disableNames);
             return true;
         }
         else if (action.equals("reset")) {
             JSONArray disableNames = new JSONArray();
+            JSONObject params;
             if (!args.isNull(0)) {
-                disableNames = args.getJSONArray(0);
+                params = args.getJSONObject(0);
+                disableNames = params.getJSONArray("disableNames");
             }
             resetIcon(disableNames);
             return true;
@@ -80,7 +83,7 @@ public class PluginAppIcon extends CordovaPlugin {
 
     private void changeIcon(String enableName, JSONArray arrDisableNames) {
         // Validate
-        if (arrDisableNames == null || arrDisableNames.length() == 0) {
+        if (enableName == null || arrDisableNames == null || arrDisableNames.length() == 0) {
             PluginResult result = new PluginResult(PluginResult.Status.ERROR, MSG_ERROR_PARSE_ARGS);
             this.callbackContext.sendPluginResult(result);
         }
