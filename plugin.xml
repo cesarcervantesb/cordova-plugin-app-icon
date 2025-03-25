@@ -15,4 +15,12 @@
 		</config-file>
 		<source-file src="src/android/PluginAppIcon.java" target-dir="src/com/ccervantesb/appicon" />
 	</platform>
+	<platform name="ios">
+		<config-file parent="/*" target="config.xml">
+			<feature name="PluginAppIcon">
+				<param name="ios-package" value="PluginAppIcon" />
+			</feature>
+		</config-file>
+		<source-file src="src/ios/PluginAppIcon.m" />
+	</platform>
 </plugin>
