@@ -26,17 +26,23 @@ NSString* MSG_ERROR_PARSE_ARGS = @"Missing or invalid arguments.";
 
     if (options != nil && options.count > 0) {
         NSLog(@"ChangeIcon...");
-        NSString* enableName = [[options objectForKey:@"enableName"] string];
-        [UIApplication.sharedApplication setAlternateIconName:enableName completionHandler:^(NSError * _Nullable error) {
-            if (error) {
-                NSLog(MSG_ERROR_CHANGE_ICON);
-                [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:MSG_ERROR_CHANGE_ICON] callbackId:command.callbackId];
-            }
-            else {
-                NSLog(MSG_SUCCESS_CHANGE_ICON);
-                [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:MSG_SUCCESS_CHANGE_ICON] callbackId:command.callbackId];
-            }
-        }];
+        NSString* enableName = [options objectForKey:@"enableName"];
+        if (enableName != nil) {
+            [UIApplication.sharedApplication setAlternateIconName:enableName completionHandler:^(NSError * _Nullable error) {
+                if (error) {
+                    NSLog(MSG_ERROR_CHANGE_ICON);
+                    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:MSG_ERROR_CHANGE_ICON] callbackId:command.callbackId];
+                }
+                else {
+                    NSLog(MSG_SUCCESS_CHANGE_ICON);
+                    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:MSG_SUCCESS_CHANGE_ICON] callbackId:command.callbackId];
+                }
+            }];
+        }
+        else {
+            NSLog(MSG_ERROR_PARSE_ARGS);
+            [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:MSG_ERROR_PARSE_ARGS] callbackId:command.callbackId];
+        }
         
     } else {
         NSLog(MSG_ERROR_PARSE_ARGS);
@@ -61,9 +67,14 @@ NSString* MSG_ERROR_PARSE_ARGS = @"Missing or invalid arguments.";
 
 - (void)getAppName:(CDVInvokedUrlCommand *)command
 {
-    NSString* appName = UIApplication.sharedApplication.alternateIconName;
-    NSLog(@"AlternateIconName: %@", appName);
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:appName] callbackId:command.callbackId];
+    NSString* alternateIconName = UIApplication.sharedApplication.alternateIconName;
+    if (alternateIconName == nil) {
+        NSString* localizedAppName = [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"];
+        NSString* appName = [[[NSBundle mainBundle] infoDictionary]objectForKey :@"CFBundleDisplayName"];
+        alternateIconName = (localizedAppName != nil) ? localizedAppName : appName;
+    }
+    NSLog(@"AlternateIconName: %@", alternateIconName);
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:alternateIconName] callbackId:command.callbackId];
 }
 
 @end
