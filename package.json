@@ -5,7 +5,8 @@
   "cordova": {
     "id": "com.ccervantesb.appicon",
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   },
   "repository": {
