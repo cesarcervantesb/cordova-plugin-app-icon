@@ -1,6 +1,6 @@
 {
   "name": "@ccervantesb/cordova-plugin-app-icon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This plugin allows change the app icon.",
   "cordova": {
     "id": "com.ccervantesb.appicon",

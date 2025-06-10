@@ -35,7 +35,7 @@ public class PluginAppIcon extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
-        if (action.equals("change")) {
+        if (action.equals("changeIcon")) {
             String enableName = null;
             JSONArray disableNames = new JSONArray();
             JSONObject params;
@@ -47,7 +47,7 @@ public class PluginAppIcon extends CordovaPlugin {
             changeIcon(enableName, disableNames);
             return true;
         }
-        else if (action.equals("reset")) {
+        else if (action.equals("resetIcon")) {
             JSONArray disableNames = new JSONArray();
             JSONObject params;
             if (!args.isNull(0)) {
